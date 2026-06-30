@@ -1,0 +1,1035 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JSA Negocios + EcFactura | Controla tu negocio desde cualquier lugar</title>
+  <meta name="description" content="Facturacion electronica, ventas, gastos y reportes para emprendedores, profesionales y pequenas empresas.">
+  <style>
+    :root {
+      --ink: #071527;
+      --muted: #5d6b7c;
+      --line: #dbe5ef;
+      --blue: #075db8;
+      --blue-2: #0a84ff;
+      --cyan: #12b8d7;
+      --green: #18a058;
+      --bg: #f5f8fb;
+      --white: #ffffff;
+      --shadow: 0 20px 55px rgba(7, 21, 39, .12);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.55;
+      background: var(--bg);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, .92);
+      border-bottom: 1px solid rgba(219, 229, 239, .85);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .brand img {
+      width: 92px;
+      height: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .nav-links a:hover {
+      color: var(--blue);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      color: var(--white);
+      background:
+        linear-gradient(110deg, rgba(7, 21, 39, .95), rgba(7, 58, 114, .88)),
+        url("assets/logo-jsa.png") center right 8% / min(580px, 62vw) auto no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 120px;
+      background: linear-gradient(180deg, transparent, rgba(245, 248, 251, 1));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      min-height: calc(100vh - 74px);
+      display: grid;
+      align-items: center;
+      padding: 72px 0 110px;
+    }
+
+    .hero-copy {
+      max-width: 720px;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #8fe5ff;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin-bottom: 20px;
+      font-size: clamp(42px, 8vw, 76px);
+      line-height: .96;
+      letter-spacing: 0;
+    }
+
+    .hero p {
+      max-width: 650px;
+      color: rgba(255, 255, 255, .84);
+      font-size: clamp(18px, 2.4vw, 24px);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .btn {
+      display: inline-flex;
+      min-height: 52px;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 22px;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      font-weight: 800;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(7, 21, 39, .18);
+    }
+
+    .btn-primary {
+      background: var(--blue-2);
+      color: var(--white);
+    }
+
+    .btn-whatsapp {
+      background: var(--green);
+      color: var(--white);
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      color: var(--blue);
+      border-color: var(--line);
+    }
+
+    section {
+      padding: 86px 0;
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 34px;
+    }
+
+    .section-head.center {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 14px;
+      font-size: clamp(30px, 4.5vw, 46px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .band-white {
+      background: var(--white);
+    }
+
+    .problem-grid,
+    .benefit-grid,
+    .plans-grid,
+    .services-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .problem-grid {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    .problem-item,
+    .feature-item,
+    .benefit-card,
+    .plan-card,
+    .service-item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+    }
+
+    .problem-item {
+      min-height: 156px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: var(--ink);
+      font-weight: 800;
+      box-shadow: 0 10px 30px rgba(7, 21, 39, .05);
+    }
+
+    .number {
+      width: 34px;
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: var(--white);
+      background: var(--blue);
+      font-size: 14px;
+    }
+
+    .solution-layout {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 42px;
+      align-items: center;
+    }
+
+    .solution-panel {
+      padding: 34px;
+      border-radius: var(--radius);
+      color: var(--white);
+      background: linear-gradient(135deg, var(--ink), var(--blue));
+      box-shadow: var(--shadow);
+    }
+
+    .solution-panel img {
+      width: 210px;
+      margin-bottom: 26px;
+      padding: 16px;
+      background: var(--white);
+      border-radius: var(--radius);
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .feature-item,
+    .service-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 18px;
+      font-weight: 800;
+    }
+
+    .check {
+      flex: 0 0 26px;
+      width: 26px;
+      height: 26px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: var(--white);
+      background: var(--green);
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .benefit-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .benefit-card {
+      padding: 26px;
+      box-shadow: 0 10px 30px rgba(7, 21, 39, .05);
+    }
+
+    .icon {
+      width: 46px;
+      height: 46px;
+      margin-bottom: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius);
+      color: var(--blue);
+      background: #e8f3ff;
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    .benefit-card h3,
+    .plan-card h3 {
+      margin-bottom: 8px;
+      font-size: 20px;
+      line-height: 1.2;
+    }
+
+    .benefit-card p,
+    .plan-card p {
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .plans-grid {
+      grid-template-columns: repeat(3, 1fr);
+      align-items: stretch;
+    }
+
+    .plans-section + .plans-section {
+      margin-top: 74px;
+      padding-top: 62px;
+      border-top: 1px solid var(--line);
+    }
+
+    .plan-status {
+      min-height: 22px;
+      margin: 0 0 20px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-card {
+      position: relative;
+      display: flex;
+      min-height: 258px;
+      flex-direction: column;
+      padding: 26px;
+      box-shadow: 0 10px 30px rgba(7, 21, 39, .05);
+    }
+
+    .plan-card.highlight {
+      border-color: rgba(10, 132, 255, .55);
+      box-shadow: var(--shadow);
+    }
+
+    .plan-meta {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 18px 0 4px;
+    }
+
+    .plan-meta-item {
+      min-height: 66px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #f7fafc;
+    }
+
+    .plan-meta-label {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .plan-meta-value {
+      display: block;
+      margin-top: 4px;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .badge {
+      width: fit-content;
+      margin-bottom: 14px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      color: var(--blue);
+      background: #e8f3ff;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .price {
+      margin: 18px 0 6px;
+      color: var(--ink);
+      font-size: 34px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .price span {
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .plan-note {
+      margin-top: auto;
+      padding-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .plan-benefits {
+      display: grid;
+      gap: 9px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .plan-benefits li {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .plan-benefits li::before {
+      content: "✓";
+      flex: 0 0 auto;
+      color: var(--green);
+      font-weight: 900;
+    }
+
+    .plans-error {
+      grid-column: 1 / -1;
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      color: var(--muted);
+      background: var(--white);
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(7, 21, 39, .05);
+    }
+
+    .plan-card.loading {
+      min-height: 210px;
+      overflow: hidden;
+    }
+
+    .plan-card.loading::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .72), transparent);
+      transform: translateX(-100%);
+      animation: shimmer 1.4s infinite;
+    }
+
+    .skeleton-line {
+      height: 13px;
+      margin-bottom: 13px;
+      border-radius: 999px;
+      background: #e8eef5;
+    }
+
+    .skeleton-line.short {
+      width: 56%;
+    }
+
+    .skeleton-line.medium {
+      width: 76%;
+    }
+
+    @keyframes shimmer {
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    .services-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .about {
+      color: var(--white);
+      background:
+        linear-gradient(100deg, rgba(7, 21, 39, .96), rgba(7, 93, 184, .82)),
+        url("assets/logo-jsa.png") center right 10% / min(520px, 60vw) auto no-repeat;
+    }
+
+    .about .lead {
+      max-width: 720px;
+      color: rgba(255, 255, 255, .86);
+      font-size: 20px;
+    }
+
+    .cta {
+      text-align: center;
+      background: var(--white);
+    }
+
+    .cta-box {
+      padding: 58px 28px;
+      border-radius: var(--radius);
+      color: var(--white);
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      box-shadow: var(--shadow);
+    }
+
+    .cta .lead {
+      color: rgba(255, 255, 255, .88);
+    }
+
+    .footer {
+      padding: 42px 0;
+      color: rgba(255, 255, 255, .8);
+      background: var(--ink);
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .footer img {
+      width: 150px;
+      margin-bottom: 16px;
+      padding: 10px 12px;
+      background: var(--white);
+      border-radius: var(--radius);
+    }
+
+    .footer strong {
+      display: block;
+      color: var(--white);
+      font-size: 18px;
+    }
+
+    .footer-links {
+      display: grid;
+      gap: 8px;
+      justify-items: end;
+    }
+
+    .footer-links a:hover {
+      color: var(--white);
+    }
+
+    @media (max-width: 980px) {
+      .nav-links {
+        display: none;
+      }
+
+      .problem-grid,
+      .benefit-grid,
+      .plans-grid,
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .solution-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .container {
+        width: min(100% - 24px, 1120px);
+      }
+
+      .hero {
+        background:
+          linear-gradient(115deg, rgba(7, 21, 39, .96), rgba(7, 58, 114, .9)),
+          url("assets/logo-jsa.png") center bottom 24px / 330px auto no-repeat;
+      }
+
+      .hero-inner {
+        min-height: auto;
+        padding: 48px 0 150px;
+      }
+
+      section {
+        padding: 62px 0;
+      }
+
+      .problem-grid,
+      .benefit-grid,
+      .plans-grid,
+      .services-grid,
+      .plan-meta,
+      .features,
+      .footer-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .actions,
+      .footer-links {
+        align-items: stretch;
+        justify-items: stretch;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .footer-links {
+        justify-items: start;
+      }
+    }
+
+    .bonus-kickoff {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      color: var(--white);
+      background:
+        radial-gradient(circle at 50% 58%, rgba(255, 255, 255, .18), transparent 28%),
+        linear-gradient(180deg, #ffdd00 0 34%, #0747a6 34% 67%, #ef3340 67% 100%);
+      overflow: hidden;
+    }
+
+    .bonus-kickoff.is-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity .45s ease, visibility .45s ease;
+    }
+
+    .bonus-kickoff-card {
+      position: relative;
+      width: min(620px, 100%);
+      padding: 34px 24px 30px;
+      border: 1px solid rgba(255, 255, 255, .34);
+      border-radius: var(--radius);
+      background: rgba(7, 21, 39, .72);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .28);
+      text-align: center;
+      backdrop-filter: blur(14px);
+    }
+
+    .bonus-kickoff-logo {
+      width: 128px;
+      margin: 0 auto 16px;
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      background: var(--white);
+    }
+
+    .bonus-kickoff h2 {
+      margin-bottom: 10px;
+      font-size: clamp(30px, 6vw, 48px);
+    }
+
+    .bonus-kickoff p {
+      margin-bottom: 0;
+      color: rgba(255, 255, 255, .86);
+      font-size: 18px;
+    }
+
+    .bonus-ball-stage {
+      position: relative;
+      height: 178px;
+      margin: 20px auto 10px;
+      overflow: hidden;
+    }
+
+    .bonus-ball {
+      position: absolute;
+      left: calc(50% - 34px);
+      bottom: 10px;
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 50%, #111 0 10%, transparent 11%),
+        radial-gradient(circle at 22% 30%, #111 0 8%, transparent 9%),
+        radial-gradient(circle at 78% 30%, #111 0 8%, transparent 9%),
+        radial-gradient(circle at 30% 76%, #111 0 8%, transparent 9%),
+        radial-gradient(circle at 70% 76%, #111 0 8%, transparent 9%),
+        #fff;
+      box-shadow: inset -10px -12px 22px rgba(0, 0, 0, .18), 0 18px 28px rgba(0, 0, 0, .25);
+      animation: bonusKick 2.8s cubic-bezier(.18, .82, .28, 1) forwards;
+    }
+
+    .bonus-goal {
+      position: absolute;
+      right: 7%;
+      bottom: 20px;
+      width: 128px;
+      height: 90px;
+      border: 5px solid rgba(255, 255, 255, .9);
+      border-bottom: 0;
+      opacity: .78;
+    }
+
+    .bonus-confetti {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .bonus-confetti span {
+      position: absolute;
+      top: -24px;
+      width: 10px;
+      height: 18px;
+      background: var(--white);
+      animation: confettiDrop 2.9s linear infinite;
+    }
+
+    .bonus-confetti span:nth-child(3n) {
+      background: #ffdd00;
+    }
+
+    .bonus-confetti span:nth-child(3n + 1) {
+      background: #0747a6;
+    }
+
+    .bonus-confetti span:nth-child(3n + 2) {
+      background: #ef3340;
+    }
+
+    .bonus-confetti span:nth-child(1) { left: 8%; animation-delay: .1s; }
+    .bonus-confetti span:nth-child(2) { left: 18%; animation-delay: .7s; }
+    .bonus-confetti span:nth-child(3) { left: 28%; animation-delay: .3s; }
+    .bonus-confetti span:nth-child(4) { left: 38%; animation-delay: 1s; }
+    .bonus-confetti span:nth-child(5) { left: 48%; animation-delay: .45s; }
+    .bonus-confetti span:nth-child(6) { left: 58%; animation-delay: .85s; }
+    .bonus-confetti span:nth-child(7) { left: 68%; animation-delay: .2s; }
+    .bonus-confetti span:nth-child(8) { left: 78%; animation-delay: .65s; }
+    .bonus-confetti span:nth-child(9) { left: 88%; animation-delay: .05s; }
+
+    .bonus-skip {
+      margin-top: 22px;
+    }
+
+    .bonus-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .bonus-actions .btn {
+      margin-top: 0;
+    }
+
+    @keyframes bonusKick {
+      0% {
+        transform: translate(-260px, 10px) rotate(0deg) scale(1);
+      }
+      35% {
+        transform: translate(-80px, -86px) rotate(220deg) scale(1.08);
+      }
+      72% {
+        transform: translate(158px, -20px) rotate(560deg) scale(.9);
+      }
+      100% {
+        transform: translate(250px, 18px) rotate(760deg) scale(.38);
+      }
+    }
+
+    @keyframes confettiDrop {
+      0% {
+        transform: translateY(-30px) rotate(0deg);
+        opacity: 0;
+      }
+      12% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(420deg);
+        opacity: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bonus-ball,
+      .bonus-confetti span {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bonus-kickoff" id="bonus-kickoff" role="dialog" aria-label="Celebracion del bono JSA" aria-modal="true">
+    <div class="bonus-confetti" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="bonus-kickoff-card">
+      <img class="bonus-kickoff-logo" src="assets/logo-jsa.png" alt="Logo JSA">
+      <h2>¡Golazo de Ecuador!</h2>
+      <p>Tu bono está listo para activarse.</p>
+      <div class="bonus-ball-stage" aria-hidden="true">
+        <div class="bonus-goal"></div>
+        <div class="bonus-ball"></div>
+      </div>
+      <div class="bonus-actions">
+        <button class="btn btn-secondary" type="button" data-bonus-close>Cerrar</button>
+        <a class="btn btn-primary bonus-skip" href="https://app.ecfactura.com/register">Obtén tu bono ya</a>
+      </div>
+    </div>
+  </div>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#inicio" aria-label="JSA inicio">
+        <img src="assets/logo-jsa.png" alt="Logo JSA">
+      </a>
+      <nav class="nav-links" aria-label="Navegacion principal">
+        <a href="#problemas">Problemas</a>
+        <a href="#solucion">Solucion</a>
+        <a href="#beneficios">Beneficios</a>
+        <a href="#planes">Planes</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">JSA Negocios + EcFactura</p>
+          <h1>Controla tu negocio desde cualquier lugar</h1>
+          <p>Facturacion electronica, ventas, gastos y reportes desde tu celular o computadora.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://app.ecfactura.com/register">Obtén tu bono ya</a>
+            <a class="btn btn-whatsapp" href="https://wa.me/593963375403?text=quiero%20obtener%20mi%20cup%C3%B3n">Contactar por WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="problemas" class="band-white">
+      <div class="container">
+        <div class="section-head center">
+          <h2>¿Te identificas con alguno de estos problemas?</h2>
+        </div>
+        <div class="problem-grid">
+          <div class="problem-item"><span class="number">1</span>No sabes cuanto ganaste este mes.</div>
+          <div class="problem-item"><span class="number">2</span>Registras gastos en cuadernos.</div>
+          <div class="problem-item"><span class="number">3</span>Pierdes facturas.</div>
+          <div class="problem-item"><span class="number">4</span>No tienes reportes claros.</div>
+          <div class="problem-item"><span class="number">5</span>Tu negocio depende de hojas de Excel.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="solucion">
+      <div class="container solution-layout">
+        <div class="solution-panel">
+          <img src="assets/logo-jsa.png" alt="Logo JSA">
+          <h2>JSA Negocios + EcFactura</h2>
+          <p>Una plataforma diseñada para emprendedores, profesionales y pequeñas empresas que necesitan controlar sus operaciones de manera sencilla.</p>
+        </div>
+        <div class="features" aria-label="Caracteristicas de la plataforma">
+          <div class="feature-item"><span class="check">✓</span>Facturacion electronica autorizada por el SRI</div>
+          <div class="feature-item"><span class="check">✓</span>Registro de ingresos y gastos</div>
+          <div class="feature-item"><span class="check">✓</span>Dashboard financiero</div>
+          <div class="feature-item"><span class="check">✓</span>Reportes</div>
+          <div class="feature-item"><span class="check">✓</span>Acceso web</div>
+          <div class="feature-item"><span class="check">✓</span>Acceso movil</div>
+          <div class="feature-item"><span class="check">✓</span>Soporte tecnico</div>
+          <div class="feature-item"><span class="check">✓</span>Capacitacion inicial</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="beneficios" class="band-white">
+      <div class="container">
+        <div class="section-head">
+          <h2>Mas control. Menos complicaciones.</h2>
+        </div>
+        <div class="benefit-grid">
+          <article class="benefit-card">
+            <span class="icon">↗</span>
+            <h3>Factura desde cualquier lugar</h3>
+            <p>Emite comprobantes electronicos de forma rapida y segura.</p>
+          </article>
+          <article class="benefit-card">
+            <span class="icon">$</span>
+            <h3>Controla tus gastos</h3>
+            <p>Conoce exactamente en que se esta yendo el dinero.</p>
+          </article>
+          <article class="benefit-card">
+            <span class="icon">▣</span>
+            <h3>Analiza tu negocio</h3>
+            <p>Visualiza ingresos, gastos y tendencias.</p>
+          </article>
+          <article class="benefit-card">
+            <span class="icon">◱</span>
+            <h3>Acceso desde cualquier dispositivo</h3>
+            <p>Celular, tablet o computadora.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="planes">
+      <div class="container">
+        <div class="plans-section" data-ecfactura-plans="invoicing">
+          <div class="section-head center">
+            <h2>Planes de Facturación Electrónica</h2>
+            <p class="lead">Emite comprobantes electrónicos autorizados por el SRI desde cualquier lugar.</p>
+          </div>
+          <div class="plans-grid" data-plans-grid aria-live="polite"></div>
+          <p class="plan-status" data-plans-status>Planes actualizados automáticamente desde EcFactura</p>
+        </div>
+
+        <div class="plans-section" data-ecfactura-plans="store">
+          <div class="section-head center">
+            <h2>Planes Tienda y Punto de Venta</h2>
+            <p class="lead">Controla ventas, productos e inventario desde una sola plataforma.</p>
+          </div>
+          <div class="plans-grid" data-plans-grid aria-live="polite"></div>
+          <p class="plan-status" data-plans-status>Planes actualizados automáticamente desde EcFactura</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="band-white">
+      <div class="container">
+        <div class="section-head">
+          <h2>Mas que un sistema</h2>
+          <p class="lead">JSA tambien te ayuda con:</p>
+        </div>
+        <div class="services-grid">
+          <div class="service-item"><span class="check">✓</span>Redes y WiFi empresarial</div>
+          <div class="service-item"><span class="check">✓</span>Camaras de seguridad</div>
+          <div class="service-item"><span class="check">✓</span>VPN y acceso remoto</div>
+          <div class="service-item"><span class="check">✓</span>Soporte tecnico</div>
+          <div class="service-item"><span class="check">✓</span>Capacitacion tecnologica</div>
+          <div class="service-item"><span class="check">✓</span>Soluciones para negocios</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about">
+      <div class="container">
+        <div class="section-head">
+          <h2>JSA Soluciones Tecnologicas para Negocios</h2>
+        </div>
+        <p class="lead">Somos una empresa enfocada en ayudar a emprendedores y pequeñas empresas a adoptar tecnologia de forma sencilla y rentable.</p>
+        <p class="lead">Nuestra mision es impulsar un Ecuador mas tecnologico, eficiente y competitivo.</p>
+      </div>
+    </section>
+
+    <section id="contacto" class="cta">
+      <div class="container">
+        <div class="cta-box">
+          <h2>Empieza hoy mismo</h2>
+          <p class="lead">Solicita una demostracion y descubre como controlar mejor tu negocio.</p>
+          <div class="actions" style="justify-content: center;">
+            <a class="btn btn-whatsapp" href="https://wa.me/593963375403?text=quiero%20obtener%20mi%20cup%C3%B3n">Contactar por WhatsApp</a>
+            <a class="btn btn-secondary" href="https://app.ecfactura.com/register">Obtén tu bono ya</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <img src="assets/logo-jsa.png" alt="Logo JSA">
+        <strong>JSA Soluciones Tecnologicas para Negocios</strong>
+      </div>
+      <div class="footer-links">
+        <a href="https://juansantosalava.com">🌐 juansantosalava.com</a>
+        <a href="https://wa.me/593963375403">📱 WhatsApp</a>
+        <a href="mailto:correo@juansantosalava.com">📧 Correo corporativo</a>
+      </div>
+    </div>
+  </footer>
+  <script src="assets/bonus-kickoff.js" defer></script>
+  <script src="assets/ecfactura-plans.js" defer></script>
+</body>
+</html>
