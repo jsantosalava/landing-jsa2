@@ -1,0 +1,23 @@
+{
+  "name": "primary",
+  "version": "1.0.0",
+  "description": "Este paquete es la version preparada para publicar en Vercel.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsantosalava/landing-jsa2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jsantosalava/landing-jsa2/issues"
+  },
+  "homepage": "https://github.com/jsantosalava/landing-jsa2#readme",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}
